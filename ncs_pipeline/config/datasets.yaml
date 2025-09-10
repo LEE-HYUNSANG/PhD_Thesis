@@ -1,0 +1,103 @@
+base:
+  default_params:
+    resultType: JSON
+  auth_param: serviceKey
+  key_env: HRDK_API_KEY
+
+# Dataset configurations
+# NOTE: endpoint URLs are placeholders and must be replaced with the official request URLs.
+datasets:
+  ncs_info:                       # 15063879
+    openapi_url: "https://www.data.go.kr/data/15063879/openapi.do"
+    endpoint: "https://apis.data.go.kr/HRDK/NcsInfoService/getNcsInfo"  # TODO verify
+    params:
+      pageNo: 1
+      numOfRows: 1000
+    paging:
+      page_param: pageNo
+      size_param: numOfRows
+      per_page: 1000
+    normalize:
+      code: ncsClCd
+      name: compeUnitName
+      level: compeUnitLevel
+      def: compeUnitDef
+      large: ncsLclasNm
+      medium: ncsMclasNm
+      small: ncsSclasNm
+      detail: ncsDclasNm
+
+  job_basic:                      # 15086440
+    openapi_url: "https://www.data.go.kr/data/15086440/openapi.do"
+    endpoint: "https://apis.data.go.kr/HRDK/JobBasicService/getJobBasic"  # TODO verify
+    params:
+      pageNo: 1
+      numOfRows: 1000
+    normalize:
+      unit_code: ncsClCd
+      unit_name: compeUnitName
+      basic_name: jobBasCompeName
+      basic_factor: jobBasCompeFactrNm
+
+  unit_licenses:                  # 15074404
+    openapi_url: "https://www.data.go.kr/data/15074404/openapi.do"
+    endpoint: "https://apis.data.go.kr/HRDK/UnitLicenseService/getUnitLicense"  # TODO verify
+    normalize:
+      unit_code: ncsCompeUnitCd
+      unit_name: ncsCompeUnitName
+      jm_code: jmCd
+      jm_name: jmNm
+      total_hours: totTrngStdrTime
+      basic_hours: jobBasCompeTrngStdrTime
+      must_hours: essntlCompeUnitTrngStdrTime
+      opt_hours: slctCompeUnitTrngStdrTime
+      org: examInstt
+      min_hours: compeUnitMinTrngTime
+
+  training:                       # 15086447
+    openapi_url: "https://www.data.go.kr/data/15086447/openapi.do"
+    endpoint: "https://apis.data.go.kr/HRDK/TrainingService/getTraining"  # TODO verify
+    normalize:
+      unit_code: ncsClCd
+      unit_name: compeUnitName
+      level: compeUnitLevel
+      goal: trainGoal
+      hours: trainTime
+      facility: facName
+      method: methName
+
+  curriculum:                     # 15086418
+    openapi_url: "https://www.data.go.kr/data/15086418/openapi.do"
+    endpoint: "https://apis.data.go.kr/HRDK/CurriculumService/getCurriculum"  # TODO verify
+    normalize:
+      large_cd: ncsLclasCd
+      dept: deptName
+      subject: crsShyrSbjtNm
+      hours: crsShyrTm
+      credit: crsShyrPoint
+      theory: theoryAt
+      practice: prctcAt
+      teamproj: teamPrjctAt
+
+  ksa_standard:                   # 3072161
+    openapi_url: "https://www.data.go.kr/data/3072161/openapi.do"
+    endpoint: "https://apis.data.go.kr/HRDK/KsaStandardService/getKsaStandard"  # TODO verify
+    normalize:
+      duty_code: dutyCd
+      unit_code: compUnitCd
+      unit_name: compUnitName
+      element_no: compUnitFactrNo
+      element_name: compUnitFactrName
+      ksa_type: gbnCd
+      ksa_name: gbnName
+      ksa_text: gbnVal
+
+  utilization:                    # 15086446
+    openapi_url: "https://www.data.go.kr/data/15086446/openapi.do"
+    endpoint: "https://apis.data.go.kr/HRDK/UtilizationService/getUtilization"  # TODO verify
+    normalize:
+      unit_code: ncsClCd
+      unit_name: compeUnitName
+      career_path_url: downUrl
+      career_period: dutyExperPerd
+      related_license: relQualfMtr
